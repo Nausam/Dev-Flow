@@ -5,38 +5,12 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filter";
+import { getQuestions } from "@/lib/actions/question.action";
 import Link from "next/link";
 
-const questions = [
-  {
-    _id: "1",
-    title: "Redux Toolkit Not Updating State as Expected",
-    tags: [
-      { _id: "1", name: "react" },
-      { _id: "2", name: "redux" },
-    ],
-    author: { _id: "1", name: "Nausam", picture: "author_picture_url" },
-    upvotes: "56",
-    views: "53560",
-    answers: [],
-    createdAt: new Date("2023-10-07"),
-  },
-  {
-    _id: "2",
-    title: "Async/Await Function Not Handling Errors Properly",
-    tags: [
-      { _id: "3", name: "javascript" },
-      { _id: "4", name: "es6" },
-    ],
-    author: { _id: "2", name: "Nausam", picture: "author_picture_url" },
-    upvotes: "23",
-    views: "1000000",
-    answers: [],
-    createdAt: new Date("2023-09-27"),
-  },
-];
+export default async function Home() {
+  const result = await getQuestions({});
 
-export default function Home() {
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -68,8 +42,8 @@ export default function Home() {
       <HomeFilters />
 
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {result.questions.length > 0 ? (
+          result.questions.map((question) => (
             <QuestionCard
               key={question._id}
               _id={question._id}

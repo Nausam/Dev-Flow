@@ -16,8 +16,6 @@ export async function createUser(userData: CreateUserParams) {
 
     const newUser = await User.create(userData);
 
-    await newUser.save();
-
     return newUser;
   } catch (error) {
     console.log(error);
